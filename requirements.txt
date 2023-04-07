@@ -1,0 +1,7 @@
+streamlit
+torch
+torchvision
+torchaudio
+accelerate
+diffusers[torch]
+transformers
