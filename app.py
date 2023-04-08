@@ -8,33 +8,10 @@ import streamlit as st
 
 run_event = False
 
-models = {
-    # "Family fined tuned model": dict(path="youruser/yourmodel",
-    #                              width=512, height=512,
-    #                              inference_steps=50,
-    #                              prompt_add=["person1name", "person2name", "person3name", "person4name"]),
-    "Dreamlike-Art 2.0": dict(path="dreamlike-art/dreamlike-photoreal-2.0",
-                              width=768, height=768,
-                              inference_steps=25,
-                              prompt_add="photo"),
-    "Analog Diffusion": dict(path="wavymulder/Analog-Diffusion",
-                                   width=512, height=512,
-                                   inference_steps=25,
-                                   prompt_add="analog style,"),
-    "PromptHero OpenJourney": dict(path="prompthero/openjourney-v4",
-                                   width=512, height=512,
-                                   inference_steps=25,
-                                   prompt_add=""),
-    "Arcane Diffusion": dict(path="nitrosocke/Arcane-Diffusion",
-                                   width=512, height=512,
-                                   inference_steps=25,
-                                   prompt_add="arcane style,"),
-    "Inkpunk Diffusion": dict(path="Envvi/Inkpunk-Diffusion",
-                             width=512, height=512,
-                             inference_steps=25,
-                             prompt_add="nvinkpunk,"),
+model_config_file = 'models.yaml'
 
-}
+with open(model_config_file, 'rt') as fi:
+    models = yaml.safe_load(fi)
 
 max_val = (1 << 53) - 1
 
@@ -68,12 +45,14 @@ with st.expander("Model Selection"):
     if not st.checkbox('Input own model', value=False):
         model_name = st.selectbox("Model", options=models.keys(), index=0)
 
-        model_path = models[model_name]['path']
+        model_path = models[model_name].get('path', None)
+        if model_path is None:
+            st.error('Model path cannot be undefined. Check model {} in yaml'.format(model_name))
 
-        width_val = models[model_name]['width']
-        height_val = models[model_name]['height']
-        num_inference_steps_val = models[model_name]['inference_steps']
-        prompt_add_options = models[model_name]['prompt_add']
+        width_val = models[model_name].get('width',width_val)
+        height_val = models[model_name].get('height',height_val)
+        num_inference_steps_val = models[model_name].get('inference_steps', num_inference_steps_val)
+        prompt_add_options = models[model_name].get('prompt_add', prompt_add_options)
 
         if type(prompt_add_options) == str:
             prompt_add = prompt_add_options
