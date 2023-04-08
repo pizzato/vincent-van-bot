@@ -1,13 +1,3 @@
-Your Family fined tuned model:
-  path: youruser/yourmodel
-  width: 512
-  height: 512
-  inference_steps: 50
-  prompt_add:
-  - person1name
-  - person2name
-  - person3name
-  - person4name
 Analog Diffusion:
   path: wavymulder/Analog-Diffusion
   width: 512
@@ -37,4 +27,3 @@ PromptHero OpenJourney:
   width: 512
   height: 512
   inference_steps: 25
-  prompt_add: ''
