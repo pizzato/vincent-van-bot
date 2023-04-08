@@ -5,8 +5,11 @@ import uuid
 import torch
 from diffusers import StableDiffusionPipeline
 import streamlit as st
+from auth import check_password
 
-run_event = False
+if not check_password():
+    st.stop()
+
 
 model_config_file = 'models.yaml'
 
@@ -56,12 +59,10 @@ with st.expander("Model Selection"):
 
         if type(prompt_add_options) == str:
             prompt_add = prompt_add_options
-            prompt_add_str = prompt_add_options
         elif type(prompt_add_options) == list:
-            prompt_add = prompt_add_options[0]
-            prompt_add_str = ", ".join(prompt_add_options)
+            prompt_add = ", ".join(prompt_add_options)
 
-        st.text("Add to the prompt: {}".format(prompt_add_str))
+        st.text("Add to the prompt: {}".format(prompt_add))
     else:
         model_name = None
         model_path = st.text_input("Model name/path", value=list(models.values())[0]['path'])
