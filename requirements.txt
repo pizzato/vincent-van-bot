@@ -3,5 +3,5 @@ torch
 torchvision
 torchaudio
 accelerate
-'diffusers[torch]'
+diffusers[torch]
 transformers
