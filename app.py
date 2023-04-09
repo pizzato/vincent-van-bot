@@ -7,9 +7,10 @@ from diffusers import StableDiffusionPipeline
 import streamlit as st
 from auth import check_password
 
+auth_token = os.environ.get("HF_TOKEN", True)
+
 if not check_password():
     st.stop()
-
 
 model_config_file = 'models.yaml'
 
@@ -29,7 +30,7 @@ st.title('Creating images with AI')
 
 @st.cache_resource
 def load_pipeline(mpath):
-    pipeline_ = StableDiffusionPipeline.from_pretrained(mpath, safety_checker=None)
+    pipeline_ = StableDiffusionPipeline.from_pretrained(mpath, safety_checker=None, use_auth_token=auth_token)
 
     pipeline_ = pipeline_.to(device)
     if device == "mps":
@@ -104,11 +105,10 @@ with st.form("Image Generation"):
     submitted = st.form_submit_button("Create")
     if submitted:
 
-        # generator = torch.manual_seed(seed)
+        generator = torch.manual_seed(seed)
 
         with st.spinner("Generating image..."):
-            result = pipeline(**gen_args)
-            # result = pipeline(**gen_args, generator=generator)
+            result = pipeline(**gen_args, generator=generator)
 
         gen_args['seed'] = seed
         gen_args['model_path'] = model_path
