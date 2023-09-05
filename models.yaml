@@ -1,29 +1,10 @@
-Analog Diffusion:
-  path: wavymulder/Analog-Diffusion
-  width: 512
+Stable Diffusion 1.5:
   height: 512
-  inference_steps: 25
-  prompt_add: analog style,
-Arcane Diffusion:
-  path: nitrosocke/Arcane-Diffusion
+  inference_steps: 30
+  path: runwayml/stable-diffusion-v1-5
   width: 512
-  height: 512
-  inference_steps: 25
-  prompt_add: arcane style,
-Dreamlike-Art 2.0:
-  path: dreamlike-art/dreamlike-photoreal-2.0
-  width: 768
+Stable Diffusion 2.1:
   height: 768
-  inference_steps: 25
-  prompt_add: photo
-Inkpunk Diffusion:
-  path: Envvi/Inkpunk-Diffusion
-  width: 512
-  height: 512
-  inference_steps: 25
-  prompt_add: nvinkpunk,
-PromptHero OpenJourney:
-  path: prompthero/openjourney-v4
-  width: 512
-  height: 512
-  inference_steps: 25
+  inference_steps: 30
+  path: stabilityai/stable-diffusion-2-1
+  width: 768
