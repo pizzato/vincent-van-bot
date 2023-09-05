@@ -39,13 +39,15 @@ if submitted:
             if (sbc.draw_steps > 0) and\
                     (((s > 0) and (s < sbc.num_inference_steps))
                         and (s % sbc.draw_steps == 0)):
+                status.update(label=f"Generating image: {m_} - Generating intermediate image")
                 st.write(m_)
                 inter_img = image_from_latents(ms.pipeline, latents)
                 img_cols = st.columns(len(inter_img))
                 for c_, im_ in zip(img_cols, inter_img):
                     c_.image(im_, use_column_width=True)
+            else:
+                status.update(label=f"Generating image: {m_}")
 
-            status.update(label=f"Generating image: {m_}")
 
         result = ms.pipeline(**gen_args, generator=generator, callback=update_status, callback_steps=1)
 

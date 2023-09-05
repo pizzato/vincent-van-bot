@@ -100,13 +100,15 @@ with cc1:
             print('3 cp_name_folder: ', _cp_name_folder)
             if _cp_name_folder != "":
                 os.makedirs(_cp_name_folder, exist_ok=True)
+            upload_status = st.status(label="Uploading", state="running", expanded=False)
             for uploaded_file in upload_files:
                 image_ = resize(Image.open(uploaded_file), resolution, resolution)
 
                 image_.save(f"{_cp_name_folder}/{uploaded_file.name}")
                 # with open(f"{_cp_name_folder}/{uploaded_file.name}","wb") as fo:
                 #     fo.write(uploaded_file.getbuffer())
-                st.success(f"Recorded in {_cp_name_folder}/{uploaded_file.name}")
+                upload_status.update(label=f"Recorded file in {_cp_name_folder}/{uploaded_file.name}")
+            upload_status.update(label=f"Upload {len(upload_files)} files completed", state="complete")
 
 with cc2:
     # Show how many images in concepts or show images
