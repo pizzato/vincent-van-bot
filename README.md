@@ -2,7 +2,7 @@
 
 <img src="images/VincentVanBot.jpg" width="300">
 
-### van Bot does three things:
+### Vincent does three things:
 - 🤖 learns how to draw you, for your personalised model
 - 🎨 create your art via prompts
 - 🖼 create art in the style of many artists at once
