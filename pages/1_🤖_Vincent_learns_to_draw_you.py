@@ -43,9 +43,6 @@ for nc in range(nconcepts):
         cp_class_folder = cb2.text_input("Folder of class photos (leave it blank to create) ",
                                          key=f"concept_class_folder_{nc}")
 
-        print("cp_class:", cp_class)
-        print("cp_class_custom:", cp_class_custom)
-        print("cp_class_folder:", cp_class_folder)
         _no_class_defined = False
         if cp_name == "":
             st.warning("Please ensure you have a concept name")
@@ -77,7 +74,6 @@ for nc in range(nconcepts):
                             class_data_dir=cp_class_folder)
 
             concepts[nc] = (cp_name, _concept)
-            print("concepts ", concepts)
 
 concept_name_list = [cp_name for (cp_name, _) in concepts]
 print("Concept List name:", concept_name_list)
@@ -91,13 +87,11 @@ with cc1:
     with st.form('Image_Upload', clear_on_submit=True):
         cp_name = st.selectbox("Add image to which concept:", options=concept_name_list)
         upload_files = st.file_uploader("Images", type=['png', 'jpg'], accept_multiple_files=True)
-        # cp_images = st.image(upload_files)
 
         upload_submit = st.form_submit_button("Upload")
         if upload_submit:
             _cp_name_folder = concepts[concept_name_list.index(cp_name)][1]['instance_data_dir']
 
-            print('3 cp_name_folder: ', _cp_name_folder)
             if _cp_name_folder != "":
                 os.makedirs(_cp_name_folder, exist_ok=True)
             upload_status = st.status(label="Uploading", state="running", expanded=False)
@@ -105,8 +99,6 @@ with cc1:
                 image_ = resize(Image.open(uploaded_file), resolution, resolution)
 
                 image_.save(f"{_cp_name_folder}/{uploaded_file.name}")
-                # with open(f"{_cp_name_folder}/{uploaded_file.name}","wb") as fo:
-                #     fo.write(uploaded_file.getbuffer())
                 upload_status.update(label=f"Recorded file in {_cp_name_folder}/{uploaded_file.name}")
             upload_status.update(label=f"Upload {len(upload_files)} files completed", state="complete")
 
