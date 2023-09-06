@@ -10,7 +10,7 @@ import yaml
 import defaults as dvar
 import van_bot_components as vbc
 
-col1, col2 = vbc.create_header(title="Vincent van Bot - bulk produces your art")
+col1, col2 = vbc.create_header(title="Vincent van Bot - produces your art in bulk")
 
 ms = vbc.ModelSelection(col2)
 
