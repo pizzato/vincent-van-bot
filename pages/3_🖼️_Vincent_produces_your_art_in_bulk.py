@@ -92,7 +92,6 @@ if st.button("Create"):
                 yaml.dump(gen_args, fo)
 
             for i, image in enumerate(result.images):
-                # st.image(image)
                 add_num = '_{}'.format(i + 1) if tot_images > 1 else ''
                 image.save(fn + add_num + ".png")
             saved_str = f" and saved on {dvar.output_path_many}/{base_fn}"
